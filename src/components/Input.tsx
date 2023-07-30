@@ -24,7 +24,7 @@ const Input = ({
   errors,
 }: InputProps) => {
   return (
-    <div className="relatice w-full">
+    <div className="relative w-full">
       {formatPrice && (
         <span className="absolute text-neutral-700 top-5 left-2"></span>
       )}
@@ -34,7 +34,7 @@ const Input = ({
         {...register(id, { required })}
         placeholder=""
         type={type}
-        className={`w-full p-4 pt-6 font-light bg-white rounded-md outline-none transition disabled: opacity-70 disabled:cursor-not-allowed ${
+        className={`w-full p-4 pt-6 font-light bg-white rounded-md outline-none transition disabled:opacity-70 disabled:cursor-not-allowed ${
           formatPrice ? "pl-9" : "pl-4"
         } ${errors[id] ? "border-rose-500" : "border-neutral-300"} ${
           errors[id] ? "focus:border-rose-500" : "focus:border-black"
