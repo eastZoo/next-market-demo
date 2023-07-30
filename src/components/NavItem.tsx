@@ -6,6 +6,7 @@ const NavItem = ({ mobile }: { mobile?: boolean }) => {
   const { data: session, status } = useSession();
 
   console.log({ session }, status);
+
   return (
     <ul
       className={`text-md justify-center flex gap-4 w-full items=center ${
