@@ -25,7 +25,12 @@ export const authOptions: NextAuthOptions = {
       },
 
       authorize: async (credentials, req) => {
-        const user = { id: "1", name: "J Smith", email: "test@example.com" };
+        const user = {
+          id: "1",
+          name: "J Smith",
+          email: "test@example.com",
+          role: "User",
+        };
         if (user) {
           return user;
         } else {
@@ -36,6 +41,10 @@ export const authOptions: NextAuthOptions = {
   ],
   session: {
     strategy: "jwt",
+  },
+  jwt: {
+    secret: process.env.JWT_SECRET,
+    maxAge: 30 * 24 * 60 * 60, // 30days
   },
   callbacks: {
     async jwt({ token, user }) {
