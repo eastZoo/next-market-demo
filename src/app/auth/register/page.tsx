@@ -22,7 +22,6 @@ const RegisterPage = () => {
     setIsLoading(true);
     try {
       const { data } = await axios.post("/api/register", body);
-      console.log(data);
       router.push("/auth/login");
     } catch (error) {
       console.log(error);

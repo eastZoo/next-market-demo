@@ -22,7 +22,6 @@ const LoginPage = () => {
     setIsLoading(true);
     try {
       const data = signIn("credentials", body);
-      console.log(data);
     } catch (error) {
       console.log(error);
     } finally {
