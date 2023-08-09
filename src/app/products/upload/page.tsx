@@ -4,6 +4,9 @@ import Container from "@/components/Container";
 import Heading from "@/components/Heading";
 import ImageUpload from "@/components/ImageUpload";
 import Input from "@/components/Input";
+import Categories, { categories } from "@/components/categories/Categories";
+import CategoryInput from "@/components/categories/CategoryInput";
+import dynamic from "next/dynamic";
 import React, { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
@@ -28,13 +31,22 @@ const ProductUploadPage = () => {
     },
   });
 
-  const imageSrc = watch("imageSrc");
-
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {};
-
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value);
   };
+
+  const latitude = watch("latitude");
+  const longitude = watch("longitude");
+
+  const imageSrc = watch("imageSrc");
+  const category = watch("category");
+
+  const KakaoMap = dynamic(() => import("../../../components/KakaoMap"), {
+    ssr: false,
+  });
+
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {};
+
   return (
     <Container>
       <div className="max-w-screen-lg mx-auto">
@@ -80,12 +92,37 @@ const ProductUploadPage = () => {
 
           <hr />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto">
-            {/* Category */}
+          <div
+            className="
+                            grid 
+                            grid-cols-1 
+                            md:grid-cols-2 
+                            gap-3
+                            max-h-[50vh]
+                            overflow-y-auto
+                        "
+          >
+            {categories.map((item) => (
+              <div key={item.label} className="col-span-1">
+                <CategoryInput
+                  onClick={(category) => setCustomValue("category", category)}
+                  selected={category === item.path}
+                  label={item.label}
+                  icon={item.icon}
+                  path={item.path}
+                />
+              </div>
+            ))}
           </div>
           <hr />
 
           {/* KaKao Map */}
+          <KakaoMap
+            setCustomValue={setCustomValue}
+            latitude={latitude}
+            longitude={longitude}
+          />
+
           <Button label="상품 생성하기" />
         </form>
       </div>
