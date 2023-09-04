@@ -5,7 +5,7 @@ import NavItem from "./NavItem";
 import { User } from "@prisma/client";
 
 interface NavbarProps {
-  currentUser?: User | null;
+  currentUser?: User | any;
 }
 
 const Navbar = ({ currentUser }: NavbarProps) => {
