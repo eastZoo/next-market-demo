@@ -32,6 +32,8 @@ export default async function getProducts(params: IProductsParams) {
       };
     }
 
+    const totalItems = await prisma.product.count({ where: query });
+
     const products = await prisma.product.findMany({
       where: query,
       orderBy: {
@@ -41,6 +43,7 @@ export default async function getProducts(params: IProductsParams) {
 
     return {
       data: products,
+      totalItems,
     };
   } catch (error: any) {
     throw new Error(error);

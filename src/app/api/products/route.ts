@@ -9,7 +9,6 @@ export async function POST(request: Request) {
   if (!currentUser) {
     return NextResponse.error();
   }
-  console.log(currentUser, "@#");
 
   const body = await request.json();
   const { title, description, imageSrc, category, latitude, longitude, price } =

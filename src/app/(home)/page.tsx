@@ -8,6 +8,8 @@ import Categories from "@/components/categories/Categories";
 import EmptyState from "@/components/EmptyState";
 import FloatingButton from "@/components/FloatingButton";
 import ProductCard from "@/components/products/ProductCard";
+import Pagination from "@/components/Pagination";
+import { PRODUCTS_PER_PAGE } from "@/constants";
 
 interface HomeProps {
   searchParams: IProductsParams;
@@ -17,9 +19,14 @@ const Home = async ({ searchParams }: HomeProps) => {
   const products = await getProducts(searchParams);
   const currentUser = await getCurrentUser();
 
+  const page = searchParams?.page;
+
+  console.log(page, "22");
+  const pageNum = typeof page === "string" ? Number(page) : 1;
+
   return (
     <Container>
-      {/* <Categories /> */}
+      <Categories />
       {products?.data.length === 0 ? (
         <EmptyState showReset />
       ) : (
@@ -33,6 +40,12 @@ const Home = async ({ searchParams }: HomeProps) => {
               />
             ))}
           </div>
+
+          <Pagination
+            page={pageNum}
+            totalItems={products.totalItems}
+            perPage={PRODUCTS_PER_PAGE}
+          />
 
           <FloatingButton href="/products/upload">+</FloatingButton>
         </>

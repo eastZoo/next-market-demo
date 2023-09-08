@@ -4,8 +4,9 @@ import Container from "@/components/Container";
 import Heading from "@/components/Heading";
 import ImageUpload from "@/components/ImageUpload";
 import Input from "@/components/Input";
-import Categories, { categories } from "@/components/categories/Categories";
+import Categories from "@/components/categories/Categories";
 import CategoryInput from "@/components/categories/CategoryInput";
+import { categories } from "@/lib/dummy";
 import axios from "axios";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
@@ -114,15 +115,15 @@ const ProductUploadPage = () => {
 
           <div
             className="
-                            grid 
-                            grid-cols-1 
-                            md:grid-cols-2 
-                            gap-3
-                            max-h-[50vh]
-                            overflow-y-auto
-                        "
+                      grid 
+                      grid-cols-1 
+                      md:grid-cols-2 
+                      gap-3
+                      max-h-[50vh]
+                      overflow-y-auto
+                  "
           >
-            {categories.map((item) => (
+            {categories?.map((item) => (
               <div key={item.label} className="col-span-1">
                 <CategoryInput
                   onClick={(category) => setCustomValue("category", category)}
