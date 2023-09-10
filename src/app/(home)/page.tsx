@@ -20,8 +20,6 @@ const Home = async ({ searchParams }: HomeProps) => {
   const currentUser = await getCurrentUser();
 
   const page = searchParams?.page;
-
-  console.log(page, "22");
   const pageNum = typeof page === "string" ? Number(page) : 1;
 
   return (

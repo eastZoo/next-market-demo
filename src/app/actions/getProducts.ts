@@ -1,3 +1,4 @@
+import { PRODUCTS_PER_PAGE } from "@/constants";
 import prisma from "@/helpers/prismadb";
 
 export interface IProductsParams {
@@ -39,6 +40,8 @@ export default async function getProducts(params: IProductsParams) {
       orderBy: {
         createdAt: "desc",
       },
+      skip: skip ? Number(skip) : 0,
+      take: PRODUCTS_PER_PAGE,
     });
 
     return {
