@@ -1,7 +1,9 @@
 "use client";
 import { User } from "@prisma/client";
-import React, { useState } from "react";
-
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { TUserWithChat } from "@/types";
 interface ChatClientProps {
   currentUser?: User | null;
 }
@@ -13,6 +15,26 @@ const ChatClient = ({ currentUser }: ChatClientProps) => {
   });
 
   const [layout, setLayout] = useState(false);
+
+  const fetcher = async (url: string) =>
+    await axios.get(url).then((res) => res.data);
+  const {
+    data: users,
+    error,
+    isLoading,
+  } = useQuery(["api-chat"], () => fetcher("/api/chat"), {
+    refetchInterval: 1000,
+  });
+
+  const currentUserWithMessage = users?.find(
+    (user: TUserWithChat) => user.email === currentUser?.email
+  );
+
+  console.log(currentUserWithMessage);
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error!</p>;
+  console.log(users);
+  console.log(currentUser);
 
   return (
     <main>
